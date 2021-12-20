@@ -1,0 +1,16 @@
+DOM EVENETS
+
+DOM Events are fired to notify code of changes that may affect code execution.
+
+Events could be click, hover, touch, drag etc.
+
+
+How to write Event Handlers?
+
+OPTION 1. Inline (HTML with Attribute Onevent)
+
+<input type='button' name='test' value='click me' onclick='inform></input>
+
+<script> function inform(){
+    alert('You clicked me')
+}</script>
