@@ -1,0 +1,98 @@
+DOM - Document Object Model 
+
+When page is written in HTML we receive a REPRESENTATION on the Web (DOM)
+The DOM parser takes HTML and represents it on the Web.
+Makes HTML available to JS to be manipulated
+
+DOM is comprised of objects.
+
+Object samlple:
+let family = {
+    members: 3,
+    lastName: 'Smith'
+}
+
+retrieve last name: family.lastName
+
+# ACCESS ELEMENTS WITH NODES #
+
+        # ACCESS DOCUMENT #
+        document (returns <html> <body> .... </body> </html>)
+
+        get the body : 
+        document.body (<body> .... </body>)
+
+
+        # CHILDREN NODES # 
+        get elements within body:
+        document.body.children (<h1>Hello</h1>, <h1>World</h1>) ----> will find ALL children
+
+        document.body.children[1] ( <h1>Hello</h1>) ----> will find only child at position 1
+
+
+        # PARENT NODES #
+        let hParent = title.parentNode; 
+
+
+
+        # FIND CHILDREN OF OTHER OBJECTS #
+        find div first 
+        let divElementNode = document.body.firstElementChild; ------> gets div
+
+        #find all children of Div
+        let childrenOfDiv = divElementNode.children ------> gets all elements in div as collection ([.....])      !!!NOTE: HTML COLLECTIO != ARRAY!!!!
+
+
+        # CHANGE COLOT OF ALL CHILDREN #
+        because the retrieved children an array we need to use a loop
+
+        for (let i = 0; i<childrenOfDiv, i++){
+            childrenOfDiv[i].style.color = 'red'     ------> makes all elements in div red
+        }
+
+        for (let elemNode of childrenOfDiv){
+            elemNode.style.color = 'red'            -------> Same as above
+    }
+
+
+
+# ACCESS NODES WITH METHODS #
+Accessing nodes by Id, Tag Name, query, classname
+
+querySelector = CSS Selector (Returns FIRST Element within document that matches selector)              // document.querySelector('#idName')
+written in CSS style - not related to CSS itself                                                        // document.querySelector('.className')
+
+querySelectorAll = CSS Selector (Returns ALL elemenets within document that matches selector)           // document.querySelectorAll('div h3') --> selects all h3 in div
+
+getElementById = id (Returns item with selected Id)                                                     // document.getElementById('idName')
+
+getElementByTagName = <> or * (Returns ARRAY of ALL elements with same tag name)                        // document.getElementsByTagName('H3')
+
+getElementByClassName = class (Returns ARRAY of ALL elements with same class)                           // document.getElementByClassName('className')
+
+
+
+If method contains Elements with S -> will always return a list, even if there is only one element
+
+
+
+
+
+// CREATE NEW ELEMENTS
+let newPara = document.createElement('P')
+
+// CREATE TEXT NODES
+let newText = document.createTextNode('Text')
+
+// APPEND TEXT TO PARAGRAPH
+newPara.append(newText)
+
+// APPEND PARA TO DIV
+let findDiv = document.getElementById('.div')
+findDiv.appendChild(newPara)
+
+
+
+
+
+
