@@ -1,0 +1,59 @@
+//-------------- ORDER OF VARIABLE CALLING ------------- //
+
+let name = 'John' // Global
+
+function checkName(){
+    // let name = 'Bob';   -----> If global variable reused in local scope, shaddows global  == outside function remains John
+    name = 'Sarah';
+    console.log('In the function:', name)
+}
+
+console.log(name)
+
+checkName()
+
+console.log('after function', name)
+
+// ORDER WILL CONCOLE LOG
+// 1) John
+// 2) In the function Sara
+// 3) After function Sarah
+
+// Variable name REMAINS Global but gets redifined (permanantly changed to Sarah) to Sarah when function executed
+// Name can be changed in the Global scope 
+
+
+
+
+//----------- FUNCTION SCOPE ------------//
+// When variables declared in a function scope they are undefined in global scope
+// let, var, const => Won't be accessible in global scrope
+
+function checkPet(){
+    //local variables
+    let age = 12;
+    var petName = 'Sarah';
+    const breed = 'dog';
+    console.log('The Pet is:', breed, petName, age)
+}
+
+checkName()
+console.log(petName)
+console.log(breed)
+console.log(age)
+
+// Console log Order:
+// 1) The Pet is dog, sarah, 12
+// 2) undefinied
+// 3) undefined
+// 4) undefined
+
+// If variables defined inside local scope (inside function), regardless of let, var, const - WON'T BE ACCESSIBLE GLOBALLY
+
+
+//----------- BLOCK SCOPE ---------------// (Loop Scope)
+// Inside block (loop) - if, switch, for, while
+// let, const => Won't be accessible globally
+// var => accesible globally
+
+
