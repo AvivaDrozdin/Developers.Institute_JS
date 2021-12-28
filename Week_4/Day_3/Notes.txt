@@ -50,8 +50,6 @@ let evenNr = numbers.filter((elem) => elem%2 == 0)
 Will return array with [2,4,6]
 
 
-
-
 ----- CHAINING -----
 // Anything that returns an array can be chained. Eg. filter + filter, filter + map, map + map etc.
 // We filter out students with score above 50 -> Them map out the names of those students.
@@ -60,7 +58,28 @@ let nameBestStudents = students.filter((elem) => elem.score > 50 ).map((elem) =>
 
 
 
+----- REDUCE -----
+The reduce() method executes a reducer function that you provide on each value of array resulting in a single output value.
 
+Syntax:
+let numbers = [10, 20, 30];
+let sum = numbers.reduce((accumulator, currentValue, index, arr) => {
+    console.log(`In ${index} loop the:`);
+    console.log(`accumulator: ${accumulator}`);
+    console.log(`currentValue: ${currentValue}`)
+} initialValue)
+
+
+*initialValue is optional! Can be empty when working with stirngs ""
+
+
+1) Take Initial value = 1000
+2) adds currentValue = 10
+    accumulator == 1010
+3) adds currentValue = 20
+    accumulator == 1030
+4) adds currentValue = 30
+    last loop / sum == 1060
 
 
 
