@@ -1,0 +1,72 @@
+// -------------- MEMORY -------------- //
+
+JS engines have two places where they can store data:
+
+-----STACK-----
+For data where we already know the size (e.g. strings, integers)
+Engine allocates a fixed amount of memory for these values, there is a limit to how large primitive values can be.
+
+
+
+HOW IT WORKS:
+1) We create a new variable (eg 'username')
+2) Allocate Address (engine assigns address at runtime)
+3) Stores Value at allocated address 
+
+
+e.g. 
+let nameMale = 'Noa'  ----> Address: X01
+
+let usernameMale = name  ----> Address: X01 (Will point to same address!)
+
+let nameFemale = 'Noa'  ----> Address: X45 (New variable even though same value!!! )
+
+leet nameMale = 'Bob' ----> Address: X01 (Although variable the same - because of new value, address reassigned)
+
+
+
+
+-----HEAP-----
+For dynamic space allocation (arrays, objects, functions)
+Engine DOESN'T allocate fixed amount of memory. More space will be allocated if needed
+
+HOW IT WORKS:
+1) Create variable with e.g. array
+2) Variable allocates address in memory for variable
+3) Creates address as value
+4) Stack value will be used as address of heap
+
+
+e.g.
+
+let nrs = [1]  ----> Stack Address: X12   Value: VV12  --> Heap Addres: VV12   Value: [1]
+nrs.push(2)  -----> Stack Address: X12   Value: VV12  --> Heap Addres: VV12   Value: [1, 2]
+
+
+
+
+
+
+
+
+
+
+
+--------------- ANONYMOUS FUNCTIONS - Continued -------------
+
+Anonymous function has no name --->  function (){ console.log(hello) }  //  () => console.log(hello)
+CANNOT BE CALLED!
+
+How to run it?
+SELF INVOKING FUNCTION!  - runs as soon as defined
+
+(function (name) {
+    alert ('hello' + name)
+})('sarah');
+
+As soon as browser opens we get allert with hello sarah!
+
+Used to avoid cluttering memory space!!!
+Executed & deleted imidiatly
+
+

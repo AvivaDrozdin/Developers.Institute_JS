@@ -57,3 +57,83 @@ console.log(age)
 // var => accesible globally
 
 
+----------------------------------------------------------------------------------------------------------------------------------
+
+//------- ARRAY DESTRUCTURING ----------------//
+
+let colors = ['red', 'blue', 'green']
+
+Insreat of:
+let color1 = colors[0]
+.
+.
+.
+
+Use:
+let[color1, color2, color3] = colors
+
+
+
+
+let family = {
+    name: 'smith';
+    member: 2;
+}
+
+instead if:
+let name = family['name']
+.
+.
+.
+
+use:
+let {name, member} = family
+
+// ...rest //
+
+let nr = [10,20,30,40,50]
+let [a, b, ...rest ] ==> a = 10, b = 20, rest = [30,40,50]
+
+
+// ---------- FUNCTION EXPRESSION ------------//
+Assigned to variable & anonymous function.
+Because function is anoymous we assign to variable = becomes reusable
+
+
+// NOT HOISTED
+const squareTwo = function(x) {
+    console.log('square')
+    return x * x
+}
+
+console.log(squareTwo(2))
+
+
+
+// ----------------- ARROW FUNCTION ---------//
+
+const funcName = (x) => {return x*x;}    ===> SAME AS BELOW
+const funcName = (x) => x*x              ===> SAME AS ABOVE (return not visible but there. Only usesd when function one line - eg. return x*x)
+
+ => AUTOMATICALLY MEANS RETURN
+
+
+
+
+// ---------------- TERNARY OPERATOR ----------//
+condition ? condition true : condition false
+
+let season = (temp) => temp > 20? 'Summer' : 'Winter';
+
+document.body.textContent = season(25) // will display Summer on website body
+
+
+
+
+
+
+
+
+
+
+
