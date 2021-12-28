@@ -1,0 +1,69 @@
+// ---------------- COPIES ------------//
+
+As from last lesson ->
+If you reassign a variable to new name, the address in the memory remans the same! 
+
+
+
+
+
+
+// -------- ADVANCED ARRAY METHODS --------- // used with arrow func
+
+CLASSIC LOOP  / OLD
+
+let prices = [20, 30, 50];
+const taxes = 17.5
+let newPrice = []
+
+for (let each of prices){
+    let incPrice = each * taxes;
+    newPrice.push(incPrice)
+}
+
+
+
+------ ARRAY MAP: ----- 
+The map() method transforms an array by applying a function to all of its elements and building a new array from the returned values.
+
+Syntax:
+let priceWithTax = prices.map(function(elem, index, arr){
+    return elem * taxes
+})
+
+Arrow function Syntax:
+let priceWithTax = prices.map((elem) => elem*taxes)
+
+
+
+
+---- FILTER ------
+The filter() method creates a new array with all elements that passed the test implemented by the provided function.
+Instead deleting elements from the existing array, it builds new array with only the elements that pass the test.
+
+Filter can take multiple conditions! 
+
+Syntax:
+let numers = [1,2,3,4,5,6]
+let evenNr = numbers.filter((elem) => elem%2 == 0)
+
+Will return array with [2,4,6]
+
+
+
+
+----- CHAINING -----
+// Anything that returns an array can be chained. Eg. filter + filter, filter + map, map + map etc.
+// We filter out students with score above 50 -> Them map out the names of those students.
+
+let nameBestStudents = students.filter((elem) => elem.score > 50 ).map((elem) => elem.name)
+
+
+
+
+
+
+
+
+
+
