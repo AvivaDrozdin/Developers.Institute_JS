@@ -1,11 +1,3 @@
-// ---------------- COPIES ------------//
-
-As from last lesson ->
-If you reassign a variable to new name, the address in the memory remans the same! 
-
-
-
-
 
 
 // -------- ADVANCED ARRAY METHODS --------- // used with arrow func
@@ -80,6 +72,41 @@ let sum = numbers.reduce((accumulator, currentValue, index, arr) => {
     accumulator == 1030
 4) adds currentValue = 30
     last loop / sum == 1060
+
+
+
+
+// ----------- REST & SPREAD ---------------- //
+
+
+
+// ---------------- COPIES ------------//
+
+----Shallow Copy  / Copy by reference----
+If you reassign a variable to new name, the address in the memory remains the same! 
+
+let names = [Bob, Ann];
+let friends = names;
+friends.push(Lia)
+
+BOTH WILL HAVE: Bob Ann Lia
+
+
+----- Hard copy / Copy by value----
+Using spread operator we add same values to new variable - IT WILL HAVE A DIFFERENT ADDRESS
+let newFriends = [...friends]
+
+newFriends.push(Mark);
+
+newFriend: Bob Ann Lia Mark
+friends: Bob Ann Lia
+
+
+
+
+
+
+
 
 
 
