@@ -1,0 +1,332 @@
+//GLOBAL VAR - can be used in local / function scope
+
+
+function displayNavbar () {
+	document.body.textContent = `Hello ${username}`
+}
+
+displayNavbar()
+
+
+
+
+//2. LOCAL VAR - created in another block to be used in function
+
+//function scope - local scope
+function retrievePersonName () {
+	// LOCAL VARIABLE
+	let personName = prompt("What is your name");
+	displayPersonName(personName) //ARGUMENT
+	//pass the value of the local variable personName to the function displayPersonName
+}
+
+function displayPersonName (userName) { //PARAMETER
+	document.body.textContent = `Hello ${userName}`
+}
+
+retrievePersonName()
+
+
+
+
+
+// Dog exercise
+
+function giveDogToCecile () {
+	let friendDog = "Rex";
+	cecileRetrieveDog(friendDog)
+}
+
+
+function cecileRetrieveDog (dogName) { 
+	// document.body.textContent = `I'm walking ${friendDog}` IMPOSSIBLE 
+	//because friendDog is a local variable
+	//UNDEFINED
+	document.body.textContent = `I'm walking ${dogName}`
+	
+}
+
+giveDogToCecile()
+
+
+//3. When the variable is a local variable, created in another block
+
+function giveDogToCecileSecond () {
+	let friendDog = "Rex";
+	return friendDog;
+}
+
+
+function cecileRetrieveDogSecond () { 
+	let dogName = giveDogToCecileSecond(); 
+	document.body.textContent = `I'm walking ${dogName}`
+	
+}
+
+cecileRetrieveDogSecond()
+
+
+
+// SORT
+
+let num = [10,2,5,7,1];
+
+
+num.sort((a,b) => {
+	console.log("a is : ", a , "b is :", b)
+	if (a < b) {
+		return -1
+	} else if (b < a) {
+		return 1
+	} else {
+		return 0
+	}
+})
+
+console.log(num)
+
+//SHORTCUT
+
+
+let numbers = [10,2,5,7,1];
+
+
+numbers.sort((a,b) => {
+	console.log("a is : ", a , "b is :", b)
+	return a - b;
+})
+
+console.log(numbers)
+
+
+
+
+
+//---------------------
+// Destructuring
+// -----------------------
+
+let characters = {
+  name: 'Hermione Granger',
+  house: 'Gryfindor',
+  height: 2,
+  friend :  {
+   username : 'Harry Potter',
+ }
+}
+
+// let name = characters.name;
+// let house = characters.house;
+
+// the same as
+
+// let {name, house} = characters;
+// console.log("name is : ", name, "house is :", house)
+// console.log(characters); //the object is unchanged
+
+// rename the variables created while destructuring
+// let {keyName : variableName} = obj
+// --> the value of the keyName will be assigned to the variableName
+// let {name : wizardUsername, house : wizardHouse} = characters;
+// console.log("wizardUsername is : ", wizardUsername, "wizardHouse is :", wizardHouse )
+
+// default value with destructuring
+// let {name : wizardUsername, house : wizardHouse, height = 1.60} = characters;
+// console.log("wizardUsername is : ", wizardUsername, "wizardHouse is :", wizardHouse, "height is : ", height)
+// If the height key doesn't exist, we set the height variable to 1.6
+// console.log(characters)
+
+// renaming the variable and pass a default value to the variable
+// let {name, house, height : wizardHeight = 1.6} = characters;
+// console.log("name is : ", name, "house is :", house, "wizardHeight is :", wizardHeight )
+// console.log(characters)
+
+
+
+
+//---------------
+// Object.entries
+// -------------
+
+let character = {
+  name: 'Hermione Granger',
+  house: 'Gryfindor',
+  age: 20,
+};
+
+let arrayCharacter = Object.entries(character)
+console.log(arrayCharacter)
+
+//Destructure inside the loop
+// for (let elem of arrayCharacter){
+//   console.log("elem : ", elem);
+//   let [key, value] = elem;
+//   console.log(key, value)
+// }
+
+// THE SAME
+// Destructure inside the statement of the loop
+// for (let [key,value] of arrayCharacter){
+//   	console.log("key : ", key, " , value: ", value)
+// }
+
+
+
+
+
+
+
+
+
+//---------------------
+//Copy objects
+//--------------------------
+
+// let characters = {
+// 	name: 'Hermione Granger',
+// 	house: 'Gryfindor'
+// };
+
+// let newCharacter = characters; //they point to the same adress
+// console.log("newCharacter : ", newCharacter, ", \ncharacters", characters)
+// newCharacter["name"] = "Harry";
+// console.log("newCharacter : ", newCharacter, ", \ncharacters", characters)
+
+
+// let person = { ...characters};// they point to different adress
+// console.log("person : ", person, ", \ncharacters", characters)
+// person["house"] = "Israel"
+// console.log("person : ", person, ", \ncharacters", characters)
+// console.log("person house = ", person["house"], "characters house", characters["house"]) //unchanged
+
+
+// With Nested objects : PROBLEM
+// let characters = {
+// 	name: 'Hermione Granger',
+// 	house: 'Gryfindor',
+// 	friend :  {
+// 		name : 'Harry Potter',
+// 	}
+// };
+
+// let person = {...characters};
+// console.log("person : ", person, ", \ncharacters", characters)
+// person["friend"]["name"] = "Hagrid"
+// PROBLEM : the name of the friend is changed in both objects
+// console.log("person : ", person, ", \ncharacters", characters)
+
+// Solution : Deep Cloning by spreading
+
+// let person = { 
+// 	...characters,
+// 	friend :{
+// 		...characters.friend
+// 	}
+// };
+
+// person["friend"]["name"] = "Hagrid"
+// UNCHANGED
+// console.log("person friend = ", person["friend"]["name"], "characters friend", characters["friend"]["name"]) //unchanged
+
+
+
+
+
+//----------------
+//NESTED DESTRUCTURING
+//----------------
+
+// let characters = {
+// 	name: 'Hermione Granger',
+// 	house: 'Gryfindor',
+// 	friend :  {
+//     username : 'Harry Potter',
+// 	}
+// }
+
+// //syntax
+// let {nameKey : {nameSubKey}} = object
+
+//nested destructuring
+// let {friend : {username}} = characters;
+// console.log(username)
+
+//nested destructuring with a different variable name and a default value
+// let {friend : {username : wizardfriendName = "John"}} = characters;
+// console.log(wizardfriendName)
+// console.log(friend)
+
+
+let characters = {
+  name: 'Hermione Granger',
+  house: 'Gryfindor',
+  friend :  {
+    username : 'Harry Potter',
+    favColors : ["blue", "pink"]
+  }
+}
+
+
+//nested destructuring object
+//destructuring of an array
+let {friend : {favColors : [first, second]}} = characters;
+console.log(first, second)
+
+
+
+
+
+//Destructure inside a function
+function getDetails ({members : membersFamily, lastname: lastnameFamily}) {
+  console.log(membersFamily, lastnameFamily)
+}
+
+getDetails({members : 2,lastname : "Smith"})
+
+
+
+// Constructor functions
+function Character (wizardname, wizardhouse, wizardPoint, wizardEnemy) {
+  //attribute
+  this.name = wizardname;
+  this.house = wizardhouse;
+  this.point = wizardPoint;
+  this.enemy = wizardEnemy;
+
+  this.fight = function () {
+      console.log(`${this.name} is fighting ${this.enemy.name}`)
+      this.enemy.point -= 10
+  }
+}
+
+
+let hermioneCharacter = new Character("Hermione", "Grinfindor", 34)
+// console.log(hermioneCharacter)
+// console.log(hermioneCharacter.house)
+
+let harryPotterCharacter = new Character("Harry", "Grinfindor", 100, hermioneCharacter)
+// console.log(harryPotterCharacter)
+// console.log(harryPotterCharacter.house)
+
+harryPotterCharacter.fight()
+
+
+
+//class syntax
+class Character {
+  constructor(wizardname, wizardhouse, wizardPoint) {
+    this.name = wizardname;
+    this.house = wizardhouse;
+    this.points = wizardPoint;
+  }
+
+	fight () {
+      console.log(`${this.name} is fighting`)
+      this.points -= 10
+  }
+}
+
+let harryPotterCharacter = new Character("Harry", "Grinfindor", 100);
+console.log(harryPotterCharacter.house)
+
+harryPotterCharacter.fight();
