@@ -1,0 +1,61 @@
+//----------------
+// Resolved or rejected promises
+// -----------------
+
+let completed = true;
+
+let learnJS = new Promise(function (resolve, reject) {
+    if (completed) {
+        resolve("I have completed learning JS.");
+    } else {
+        reject("I haven't completed learning JS yet.");
+    }
+});
+
+console.log(learnJS)
+
+//Promises and set timeout
+
+let mathGrade = 90;
+
+let gift = new Promise(function (resolve, reject) {
+	setTimeout(() => {
+	    if (mathGrade >= 90) {
+	        resolve("I'm buying you a gift");
+	    } else {
+	        reject("I don't love you anymore");
+	    }
+	    console.log(gift) // After 5 seconds, Promise Object -> state : Resolved, result: "I'm buying you a gift"
+	}, 5000);
+});
+
+console.log(gift) // Promise Object -> state : Pending
+
+// Consuming Promises
+let completed = true;
+
+let learnJS = new Promise(function (resolve, reject) {
+	    if (completed) {
+	        resolve("I have completed learning JS.");
+	    } else {
+	    	console.log("After 5 seconds")
+	        reject("I haven't completed learning JS yet.");
+	    }
+});
+
+
+learnJS
+.then(message => message.toUpperCase()) 
+//Promise Object result: I HAVE COMPLETED LEARNING JS
+.then(upperMessage => upperMessage.split(" "))
+//Promise Object result: ["I","HAVE","COMPLETED","LEARNING","JS"]
+.then(arr => {
+	if (arr.length < 6) {
+		throw new Error("Not enough words")
+	} else {
+		console.log(arr)
+	}
+})
+//Promise Object console.log result
+.catch(error => console.log("in the catch", error))
+.finally(() => console.log("In the finally"))
