@@ -1,0 +1,171 @@
+// RECAP PROMISE
+
+When Primise is resolved we need to use .then
+
+.then takes the result of the resolved promise
+== .then -> returns a promise. If the promise has a result we need to use another .then
+
+
+e.g
+
+new Promse 
+    resolved result 'Hello'
+
+
+.then(x => return 'Hello') ----> promise resovled with result 'Hello'  // x == result of first promise
+.then(y => return y + '!') ----> adds ! to result of  first .then promise // y = result of promise == 'Hello'
+
+
+
+
+
+//----------------------
+// ERROR HANDLING
+//----------------------
+
+let btn = document.getElementById("btn");
+btn.addEventListener("click", requestData)
+
+// // with async-await
+// // try, catch is better than 
+// // then,catch because it can find an error across multiple promises
+
+async function requestData () {
+	try {
+		let fetched = await fetch('https://jsonplaceholder.typicode.com/users/1');
+		if(fetched.status === 200){
+	    	let user = await fetched.json();
+	    	console.log(user.username)
+	    	let fetchedSpecificGif = await fetch(`https://api.giphy.com/v1/gifs/random?tag=${user.username}&api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My`)
+	    	let details = await fetchedSpecificGif.json();
+	    	console.log(details.data.title)
+		} else {
+			throw new Error("not 200")
+		}
+	} catch {
+		console.log("Error")
+		let results = document.getElementById("results");
+		results.innerHTML = "<iframe src='https://giphy.com/embed/3o6Zt6ML6BklcajjsA' width='480' height='360' frameBorder='0' class='giphy-embed' allowFullScreen></iframe></p>";
+	}
+}
+
+
+
+
+// -----------------
+// ASYNC
+// ----------------
+
+// "old" way
+// function sayHello(username){
+// 	return new Promise (function (resolve, reject) { 
+// 		resolve(`Hello ${username}`)
+// 	})
+// }
+
+// new way - syntactic sugar
+// async function sayHello(username){
+// 	return `Hello ${username}`;
+// }
+
+//new way with exceptions
+// async function sayHello(username){
+// 	if(username != "John"){
+// 		throw new Error ("incorrect username")
+// 	} else {
+// 		return `Hello ${username}`;
+// 	}
+// }
+
+//will go the the then method
+// sayHello("John")
+// .then(result => document.body.textContent = result.toUpperCase())
+// .catch(error => console.log(error))
+
+//will go the the catch method
+// sayHello("David")
+// .then(result => document.body.textContent = result.toUpperCase())
+// .catch(error => console.log(error))
+
+// ---------------
+// Differences
+// --------------
+
+//WITHOUT async await
+
+// const learnJS = () => {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//     	resolve('Javascript DONE')
+// 	},2000)
+//   })
+// }
+// // learnJs()
+// // .then(result => console.log(result))
+
+
+//WITH async await
+
+// // await 
+// // -> 1) call the function
+// // -> 2) retrive the value of the promise
+
+// async function checkPromises(){
+// 	let result = await learnJS();
+// 	console.log("IN THE CONSOLE.LOG result", result)
+// 	return result;
+// }
+
+//NOT BLOCKING
+// for (let i = 0; i<8; i++){
+// 	console.log(i)
+// }
+
+// checkPromises() //Promise resolved result: NO RESULT
+
+//-------------------------
+// ASYNC AWAIT
+//----------------------
+
+// //1rst example
+
+const learnJS = () => {
+  return new Promise(resolve => {
+  	console.log("In LearnJS")
+    setTimeout(() => {
+    	console.log("--------I learn Javascript-------");
+    	resolve('Javascript DONE')
+	},3000)
+  })
+}
+
+const learnReact = () => {
+  console.log("In LearnReact")
+  return new Promise(resolve => {
+    setTimeout(() => {
+    	console.log("--------I learn React 2 sec after JS-------")
+    	resolve('REACT DONE')
+    }, 2000)
+  })
+}
+
+const doSomething = async () => {
+  let javascript = await learnJS();
+  console.log("hello")
+  let react = await learnReact();
+  console.log("bye")
+}
+
+console.log('Before')
+doSomething()
+console.log('After')
+
+// "Before"
+// "In LearnJS"
+// - waiting 3 sec , while we wait "After"
+// "--------I learn Javascript-------"
+// "hello"
+// "In LearnReact"
+// waiting 2 sec
+//"--------I learn React 2 sec after JS-------"
+// "bye"
