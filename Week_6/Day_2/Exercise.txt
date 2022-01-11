@@ -1,0 +1,72 @@
+Exercise3.
+
+CREATE TABLE DEPARTMENT
+(
+   DEPTCODE   INTEGER,
+   DeptName   CHAR(30),
+   LOCATION   VARCHAR(33)
+);
+
+CREATE TABLE EMPLOYEE
+(
+   EmpCode      INTEGER,
+   EmpFName     VARCHAR(15),
+   EmpLName     VARCHAR(15),
+   Job          VARCHAR(45),
+   Manager      CHAR(4),
+   HireDate     DATE,
+   Salary       INTEGER,
+   Commission   INTEGER,
+   DEPTCODE     INTEGER
+);
+
+STEPS:
+
+I. Improve the tables
+
+1. DEPTCODE is the PK of the Department table (incremented by 10)
+the first deptcode is 10, the second dept code is 20 ect...
+--> Look in the internet, how to create a sequence
+2. EmpCode is the PK of the Employee table (not serial)
+3. DEPTCODE is the FK of the Department table
+4. Default salary is : 0 and is a decimal
+5. Employee names cannot be null
+6. Location department needs to be unique
+(edited)
+
+
+
+
+
+
+
+
+
+
+Exercise 1 and 2 Solutions
+
+-- UPDATE actors
+-- SET first_name = 'Maty' WHERE actor_id = 1
+
+-- RETURNING first_name
+
+-- SELECT * FROM actors ORDER BY actor_id ASC
+
+-- UPDATE actors
+-- SET number_oscars = 4 WHERE last_name = 'Clooney'
+-- RETURNING *
+
+-- ALTER TABLE actors RENAME COLUMN age TO birthdate;
+
+-- DELETE FROM actors WHERE actor_id=7
+-- RETURNING *
+
+-- SELECT * FROM actors ORDER BY actor_id ASC
+
+-- SELECT COUNT(*), AVG(number_oscars) FROM actors
+
+-- SELECT DISTINCT number_oscars FROM actors;
+
+-- SELECT * FROM actors WHERE birthdate > '01/01/1970'
+
+-- SELECT * FROM actors WHERE first_name IN('Linsey', 'Frank', 'Maty')
