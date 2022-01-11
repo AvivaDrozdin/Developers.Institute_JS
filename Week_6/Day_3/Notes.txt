@@ -1,0 +1,270 @@
+-- SELECT * FROM movies;
+-- SELECT * FROM actors;
+
+-- The reference is on the table movies
+-- CREATE TABLE movies(
+-- 	movie_id SERIAL PRIMARY KEY,
+-- 	movie_title VARCHAR (50) NOT NULL,
+-- 	movie_story TEXT,
+-- 	actor_playing_id INTEGER REFERENCES actors (actor_id)
+-- );
+
+
+
+-- SYNTAX
+-- SELECT columns_names
+-- FROM TABLE1
+-- INNER JOIN TABLE2
+-- ON FK_values = PK_values
+
+-- SAME AS
+-- SELECT columns_names
+-- FROM TABLE1
+-- INNER JOIN TABLE2
+-- ON PK_values = FK_values
+
+-- INNER JOIN
+-- INNER JOIN returns a result set containing a row in the left table that matches the row in the right table.
+-- Actors playing in movies
+SELECT first_name, last_name, movie_title
+FROM actors
+INNER JOIN movies
+ON actor_id = actor_playing_id
+
+-- LEFT JOIN
+-- The LEFT JOIN returns a complete set of rows from the left table with the matching rows 
+-- if available from the right table. If there is no match, the right side will have null values.
+-- Actors playing in the movies ALSO the actors that are not playing in any movies
+SELECT actor_id, first_name, last_name, movie_title
+FROM actors
+LEFT JOIN movies
+ON actor_playing_id = actor_id
+
+--RIGHT JOIN
+--The RIGHT JOIN is a reversed version of the left join. 
+-- It produces a result set that contains all rows from the right table with 
+-- matching rows from the left table. If there is no match, the left side will have null values.
+-- Actors playing in movies AND ALSO the movies that don't cast any actor
+SELECT actor_id, first_name, last_name, movie_title
+FROM actors
+RIGHT JOIN movies
+ON actor_playing_id = actor_id
+
+--FULL JOIN
+-- The FULL JOIN produces a result set that contains all rows from both the left and right tables,
+-- with the matching rows from both sides where available. If there is no match, the missing side contains null values.
+-- All the actors and all the movies
+SELECT actor_id, first_name, last_name, movie_title
+FROM actors
+FULL JOIN movies
+ON actor_playing_id = actor_id
+
+
+
+
+
+-- One to One
+
+-- One person has One TZ
+-- One TZ belongs to ONLY ONE PERSON
+
+-- One person has One profile
+-- One profile belongs to ONLY ONE PERSON
+
+-- One to One :  
+-- An actor can own only one car, 
+-- and a car belongs to only one person
+
+-- UNIQUE FK
+CREATE TABLE cars (
+  car_id SERIAL PRIMARY KEY,
+  brand VARCHAR(30) NOT NULL,
+  color VARCHAR(30) NOT NULL,
+  owner_id INTEGER UNIQUE REFERENCES actors (actor_id)
+);
+
+-- SUBQUERIES
+INSERT INTO cars (brand, color, owner_id)
+VALUES('Renault', 'black',(SELECT actor_id FROM actors WHERE first_name='George' AND last_name='Clooney')),
+	  ('Mazda', 'red', (SELECT actor_id FROM actors WHERE first_name='Emma' AND last_name='Watson'))
+RETURNING *
+
+INSERT INTO cars (brand, color)
+VALUES('Jaguar', 'yellow'),('BMW', 'pink')
+RETURNING *
+
+-- Find the car owned by Emma Watqon
+SELECT last_name, brand
+FROM cars
+INNER JOIN actors
+ON actor_id = owner_id
+WHERE last_name='Watson';
+
+-- Find the actors that own a car, and the cars not yet bought
+SELECT last_name, brand
+FROM actors
+RIGHT JOIN cars
+ON actor_id = owner_id;
+
+-- SELECT * FROM cars;
+
+UPDATE cars
+SET owner_id = (SELECT actor_id FROM actors WHERE last_name='Damon')
+WHERE brand='BMW'
+RETURNING *
+
+-- ERROR:  duplicate key value violates unique constraint "cars_owner_id_key"
+-- DETAIL:  Key (owner_id)=(3) already exists.
+UPDATE cars
+SET owner_id = (SELECT actor_id FROM actors WHERE last_name='Clooney')
+WHERE brand='Jaguar'
+RETURNING *
+
+
+
+
+-- One to many : An actor can have many houses, but a house is owned by only one actor
+
+CREATE TABLE houses(
+	house_id SERIAL PRIMARY KEY,
+	city VARCHAR (20) NOT NULL,
+	street VARCHAR (20) NOT NULL,
+	street_number SMALLINT NOT NULL,
+	number_rooms SMALLINT NOT NULL,	
+	heir_id INTEGER REFERENCES actors (actor_id)
+)
+
+INSERT INTO houses (city, street,street_number, number_rooms, heir_id)
+VALUES('Paris', 'Rue de la Paix', 20, 5, (SELECT actor_id FROM actors WHERE first_name='Emma' AND last_name='Watson')),
+	  ('London', 'Buckingham', 2, 100, (SELECT actor_id FROM actors WHERE first_name='Emma' AND last_name='Watson')),
+	  ('NewYork', 'Timesquare', 123, 10, (SELECT actor_id FROM actors WHERE first_name='George' AND last_name='Clooney'))
+RETURNING *
+
+-- How many houses are owned by Watson
+SELECT COUNT(*)
+FROM actors
+INNER JOIN houses
+ON actor_id=heir_id
+WHERE last_name='Watson'
+
+SELECT first_name, last_name, COUNT(*) AS nbHouses
+FROM actors
+INNER JOIN houses
+ON actor_id=heir_id
+GROUP BY first_name, last_name
+ORDER BY nbHouses ASC;
+
+INSERT INTO houses (city, street,street_number, number_rooms, heir_id)
+VALUES('Paris', 'Madeleine', 20, 5, (SELECT actor_id FROM actors WHERE first_name='Matt' AND last_name='Damon'))
+RETURNING *
+
+-- Nb of houses per cities
+SELECT city, COUNT(*) AS nbHouses FROM houses
+GROUP BY city
+ORDER BY city
+
+
+
+
+
+-- ONE TO MANY
+-- A genre can have many music
+-- A music can belong to only one genre
+
+-- CREATE TABLE genre (
+--   genre_id SERIAL PRIMARY KEY,
+--   genre VARCHAR(30) NOT NULL
+-- );
+
+-- CONSTRAINT - ON DELETE SET NULL : If the parent record is deleted the column ref_genre_id  in the child table will be set to null
+-- CREATE TABLE musicalPiece (
+--   musicalPiece_id SERIAL PRIMARY KEY,
+--   musicalPiece_name VARCHAR(30) NOT NULL,
+--   author VARCHAR(30) NOT NULL,
+--   ref_genre_id INTEGER REFERENCES genre (genre_id) ON DELETE SET NULL
+-- );
+
+-- INSERT INTO genre (genre)
+-- VALUES('Blues'),('Classical')
+-- RETURNING *
+
+-- INSERT INTO musicalPiece (musicalPiece_name, author,ref_genre_id)
+-- VALUES
+-- 	  ('I Cant Quit You Baby', 'Otis Rush', (SELECT genre_id FROM genre WHERE genre='Blues')),
+-- 	  ('Crossroad Blues', 'Robert Johnson', (SELECT genre_id FROM genre WHERE genre='Blues'))
+-- RETURNING *
+
+-- Successful delete
+-- DELETE from genre WHERE genre='Blues';
+
+-- UPDATE musicalPiece
+-- SET ref_genre_id = (SELECT genre_id FROM genre WHERE genre = 'Classical')
+-- RETURNING *
+
+SELECT musicalpiece_name
+FROM genre
+INNER JOIN musicalPiece
+ON genre_id = ref_genre_id
+WHERE genre = 'Classical'
+
+
+
+
+
+
+-- -------------------------------------------------
+-- Many to Many : 
+-- An actor can play in many different movies, 
+-- a movies can cast a lot of different actors
+
+-- Then we create the new table
+CREATE TABLE actors_movies (
+  actor_id INTEGER NOT NULL REFERENCES actors(actor_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  movie_id INTEGER NOT NULL REFERENCES movies(movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  actor_role VARCHAR(30) NOT NULL,
+  is_lead_role BOOLEAN NOT NULL,
+  PRIMARY KEY (actor_id, movie_id)
+);
+
+INSERT into actors_movies(actor_id, movie_id, actor_role, is_lead_role) 
+VALUES 
+(
+	(SELECT actor_id FROM actors where first_name = 'George' AND last_name = 'Clooney'), 
+	(SELECT movie_id FROM movies where movie_title = 'Gravity'), 
+	'Matt Kowalski', 
+	TRUE
+),
+
+(
+	(SELECT actor_id FROM actors where first_name = 'George' AND last_name = 'Clooney' ), 
+	(SELECT movie_id FROM movies where movie_title = 'Oceans Eleven'), 
+	'Danny Ocean', 
+	FALSE
+),
+
+(
+	(SELECT actor_id FROM actors where first_name = 'Matt' AND last_name = 'Damon' ),
+	(SELECT movie_id FROM movies where movie_title = 'Oceans Eleven'),
+	'Linus Caldwell', 
+	FALSE
+)
+
+SELECT * FROM actors_movies;
+
+-- Find the movies played by Clooney
+SELECT first_name, last_name, movie_title, actor_role
+FROM actors_movies AS am
+INNER JOIN actors ON actors.actor_id = am.actor_id
+INNER JOIN movies ON movies.movie_id = am.movie_id
+WHERE last_name = 'Clooney';
+
+-- Find the nb of movies played by Clooney
+SELECT COUNT(*)
+FROM actors_movies AS am
+INNER JOIN actors ON actors.actor_id = am.actor_id
+INNER JOIN movies ON movies.movie_id = am.movie_id
+WHERE last_name = 'Clooney';
+
+
+
+
