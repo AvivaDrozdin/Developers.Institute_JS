@@ -1,0 +1,46 @@
+--------- How to run js file on Node.js? --------------
+
+In terminal:
+1) Find path to folder
+2) node filename.js
+
+
+
+ --------- How to export / import in node.js? -------------
+
+Export = module.export = functioname
+Import = require('./filename.js')
+
+
+e.g. 
+// greeting.js //
+
+const greeting = (name) => {
+    console.log(`Hello ${name}. Welcome to NodeJS`)
+}
+
+module.export = greeting
+
+
+// file.js //
+
+const greeting = require('./greeting.js')
+console.log(greeting)
+
+
+If one export an object, important to use seperately, as otherwise will return an object
+
+expot:
+{greeting1, greeting2}
+
+import:
+const a =  require('./filename.js')
+a.greeting1('name')
+a.greeting2('name2', 'lastname2')
+
+
+
+
+
+--------- NPM Packages ---------
+Example: Axios
