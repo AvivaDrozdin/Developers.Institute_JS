@@ -1,0 +1,19 @@
+---------- Creating Server with Node.Js --------------
+
+const http = require('http');   <------- Module build in to Node.Js
+
+const server = http.createServer((req, res) => {
+    
+    
+    This method signals to the server that all of the response headers and body have been sent; that server should consider this message complete. The method, response.end(), MUST be called on each response.
+     res.end('Hello from my first web server')
+})   
+
+
+server.listen(5000,()=> {
+    console.log('Server is listening to port 5000');
+})
+
+
+
+----- IMPORTANT: When deploying: DELETE NODEMON!!!! Use Node -----------
