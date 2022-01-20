@@ -1,0 +1,49 @@
+----------- FILE SYSTEM -----------
+
+// READ FILES  
+
+            file name
+fs.readFile('./data', (error, data) => {
+    if(error){
+        console.log(error)
+    }else{
+        console.log(data)
+    }
+}) 
+
+----> If no file names "data" available will log err.
+----> else buffer xyz
+
+----> Buffer 11 22 33 44= memory area between devide and application 
+
+Make Buffer readable = data.toString()
+
+
+    Read File is ASYNC! 
+
+    console.log(before)
+    fs.readFile('./data', (error, data) => {
+        console.log(during)
+    }) 
+    console.log(after)
+
+
+    Order: Before, After, During!
+
+
+    Read Sync:  
+
+
+
+
+
+// WRITE FILE
+let txt = 'hello file management'
+
+                filename       
+fs.writeFile('./filename.txt', txt, (err) => {
+    if(err){
+        console.log(err)
+    }
+})
+

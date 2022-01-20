@@ -1,0 +1,60 @@
+--- EJS Embeded JavaScrip ----
+
+Files that can be "reused" = Template
+E.g. one Navigation files and use it on every page
+
+
+1. Install EJS
+
+2. in server.js - app.set('view engine', 'ejs')
+
+
+3. create folder called "views" <--- MANDATORY
+
+
+4. create templates (e.g. index.ejs / nav.ejs)
+
+
+5. in server.js  - Render EJS file 
+    Will look in views as engine set to ejs views:
+
+ app.get('/', (req, res) => {
+    res.render('index')
+})
+
+
+6. To include e.g. Nav template in other ejs files 
+
+use: 
+<%- include('./templatename'); %>
+
+
+
+7. Show data: 
+server.js : 
+
+app.get('/shop', (req,res)=> {
+    const products = [
+        {id:1, name:'iphone', price:'1200'},
+        {id:2, name:'ipad', price:'2000'},
+        {id:3, name:'iwatch', price:'500'},
+    ]
+    res.render('shop', {
+        data:products
+    })
+})
+
+
+EJS:
+
+ <% data.forEach(item => { %>
+        <div>
+            <p>
+                <%= item.name %>
+                <%= item.price %>
+            </p>
+        </div>
+<% }) %>
+
+
+ALWAYS OPEN AND CLOSE <% %> FOR JS
