@@ -1,0 +1,28 @@
+COMPONENT LIFECYCLE
+
+
+--- MOUNTING ---
+1. Create constructor
+
+2. Render 
+
+3. componentDidMount
+
+
+
+--- UPDATE ---
+
+1. new props / setState() / forceUpdate() ----> Now using setState sample
+
+2. Should Component Update y/n?
+
+3. Render  (e.g. call DB)
+
+4. Get Snapshot before Update
+
+5. component did mount
+
+
+
+--- UNMOUNTING ---
+1. component will unmount

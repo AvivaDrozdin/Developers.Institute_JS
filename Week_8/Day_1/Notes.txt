@@ -1,0 +1,87 @@
+----- REACT ----
+
+A JavaScript Library!
+
+Library vs. Framework
+Library has fewer controls and requires more own code.
+Framework is like a "skeleton" that has already pre-installed 
+
+
+
+---- INSTALL ----
+
+Option 1 - NEW)
+npx create-react-app appname
+
+Option 2 OLD)
+npm i -g create-react-app appname 
+
+
+
+
+--- RUN SERVER ----
+Go into app folder 
+npm start
+
+
+
+--- APP.JS ---
+is the starting page you see when React app starts
+
+
+--- SRC file (components)---
+First letters HAVE TO BE CAPITAL
+
+Create functions in new file
+1. export (export default funcname;)
+
+Import to other file (e.g. App.js)
+2. import (import Hello from './Hello')
+
+
+
+--- Import React ---
+inside file import react (import React from 'react')
+Make component  Class based
+
+
+
+--- CSS Tachyons ---
+Framework for CSS  - requires to be imported in the application ONCE!
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --- Class consturcor reminder ----
+
+class App extends React.Component{
+    consturcor(){
+        super();
+        this.state = {
+            arr: [
+                {id: 1, name: 'Robi', email: 'robo@rob.com'},
+                {id: 2, name: 'Bobi', email: 'bobi@rob.com'},
+                {id: 3, name: 'Obi', email: 'obo@rob.com'}
+            ]
+        } <-- state is an object
+    }
+
+    render(){
+        return (
+            <>
+            this.state.arr.map(items=> {
+                return <Card data={item}>
+            })
+            </>
+        )
+    }
+}
