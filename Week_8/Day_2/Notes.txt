@@ -26,3 +26,11 @@ COMPONENT LIFECYCLE
 
 --- UNMOUNTING ---
 1. component will unmount
+
+
+
+
+
+
+
+REDUX - State Management

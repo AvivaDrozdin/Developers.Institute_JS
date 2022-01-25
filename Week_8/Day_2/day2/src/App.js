@@ -4,84 +4,97 @@ import './App.css';
 import Card from './components/Card'
 
 
-// --- Class Component: When we need to use Functions & Use Render  ---- Function Component: When no functions needed ///
+// // --- Class Component: When we need to use Functions & Use Render  ---- Function Component: When no functions needed ///
 
-class App extends React.Component{
-  constructor(){
-    super();
-    // The only way to call render - use state!
-    // Inside the object add all variables we want to render - that can be reused and/or changed during use
-    this.state = {
-      test: '',
-      arr: [],
-      counter:0,
+// class App extends React.Component {
+//   constructor() {
+//     super();
+//     // The only way to call render - use state!
+//     // Inside the object add all variables we want to render - that can be reused and/or changed during use
+//     this.state = {
+//       test: '',
+//       arr: [],
+//       counter: 0,
 
-      number1: 0,
-      number2: 10
-    }
-    // console.log('1', 'constructor')
-  }
-
-
-  componentDidMount(){
-  //   console.log('2', 'componentDidMount')
-  }
+//       number1: 0,
+//       number2: 10
+//     }
+//     // console.log('1', 'constructor')
+//   }
 
 
-
-  handlePlus = () => {
-    this.setState({counter:this.state.counter+1})
-    console.log(this.state)
-
-    // alternative
-    // const {counter} = this.state;
-    // this.setState({counter:counter+1})
-  }
-
-
-  handleMinus = () => {
-    if(this.state.counter <= 0){
-      this.setState({
-        counter:0
-      });
-    } else {
-      this.setState({
-        counter: this.state.counter - 1
-      });
-    }
-  }
+//   componentDidMount() {
+//     //   console.log('2', 'componentDidMount')
+//   }
 
 
 
-  handleBoth = () => {
-    const {number} = this.state;
-    this.setState({number:number1+1, number:number1-1})
-  }
+//   handlePlus = () => {
+//     this.setState({ counter: this.state.counter + 1 })
+//     console.log(this.state)
 
-  render(){
-    // console.log('3', 'render')
-    return (
-      <div className="App">
-        <header className="App-header">
-                            {/* On click - execute handleClick */}
-          <button onClick={this.handlePlus}> Click me  - Add one </button>
-
-          <button onClick={this.handleMinus}> Click me  - Subtract one </button>
-          {/* On click - add  or subtract 1 to counter */}
-            {this.state.counter}
+//     // alternative
+//     // const {counter} = this.state;
+//     // this.setState({counter:counter+1})
+//   }
 
 
+//   handleMinus = () => {
+//     if (this.state.counter <= 0) {
+//       this.setState({
+//         counter: 0
+//       });
+//     } else {
+//       this.setState({
+//         counter: this.state.counter - 1
+//       });
+//     }
+//   }
 
-          <button onClick={this.handleBoth}> Click me  - Subtract one </button>
-          {this.state.number1} ##### {this.state.number2}
+// // componentDidMount - NOT ONLY FOR FETCHING!!!!
+//   componentDidMount() {
+//     fetch('https://jsonplaceholder.typicode.com/users')
+//       .then(res => res.json())
+//       .then(data => {
+//         this.setState({ arr: data })
+//       })
+//   }
 
 
-          <Card name={'Adam'} email={'adam@adamson.com'}/>
-        </header>
-      </div>
-    );
-  }
-}
+//   render() {
+//     const { arr } = this.state
+//     // console.log('3', 'render')
+//     return (
+//       <div className="App">
+//         <header className="App-header">
+//           <Card name={'Adam'} email={'adam@adamson.com'} />
+
+//           {/* On click - execute handleClick */}
+//           <button onClick={this.handlePlus}> Click me  - Add one </button>
+
+//           <button onClick={this.handleMinus}> Click me  - Subtract one </button>
+//           {/* On click - add  or subtract 1 to counter */}
+//           {this.state.counter}
+
+
+
+
+
+//           {/* Loop through users and e.g. add images -- user = in Card.js */}
+//           {
+//             // if no const {arr} = this.state --> use: this.state.arr.map
+//             arr.map((item, i) => {
+//               return <Card user={item} />
+//             })
+//           }
+
+
+
+//         </header>
+//       </div>
+//     );
+//   }
+// }
 
 export default App;
 
