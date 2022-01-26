@@ -1,0 +1,14 @@
+ERROR BOUNDRIES
+
+// Whatever I wrap includes the children!!! 
+
+-> return this.props.children
+
+
+
+
+BROWSER ROUT
+to Navigate beweeen components
+1) install: react router dom
+2) import and wrap in index.js
+3) import to app.ks
