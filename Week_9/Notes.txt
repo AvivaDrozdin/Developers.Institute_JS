@@ -1,0 +1,28 @@
+REDUX
+
+State management container.
+
+
+Redux does not replace props! 
+If one needs to communicate with components - use redux AND props.
+
+
+Why use Redux?
+Helps communicate global state.
+
+
+
+
+
+
+
+
+Props?
+Props are equivalent to function arguments in JS / attributes in HTML.
+Used to pass read only data. 
+
+
+
+
+
+

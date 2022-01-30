@@ -24,7 +24,7 @@ app.post('/login', (req, res) => {
 // GET OBJECT & IMAGE
 app.get('/login', (req, res) => {
     // OBJECT
-    // res.json({user:'Ziv'})           // <- When sending Object when using res.send(obj)-> use json.stringify
+    res.json({user:'Ziv'})           // <- When sending Object when using res.send(obj)-> use json.stringify
     //                                  // alternative use res.json(obj)
 
     // IMG
