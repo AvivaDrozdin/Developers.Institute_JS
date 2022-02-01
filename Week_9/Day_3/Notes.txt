@@ -1,0 +1,18 @@
+------ COMBINING REDUCERS ----
+
+in APP.JS
+
+import {}
+import{reducer_1} from './reduxfolder'
+import{reducer_2} from './reduxfolder'
+
+const reducers = combineReducers({
+    reducer_1: reducer_1,
+    reducer_2: reducer_2
+})
+
+
+
+
+
+install npm -i redux logger
