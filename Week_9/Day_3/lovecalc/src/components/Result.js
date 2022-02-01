@@ -1,3 +1,5 @@
+import {connect} from 'react-redux'
+
 const Result = (props) => {
     return(
         <>
@@ -9,4 +11,19 @@ const Result = (props) => {
     )
 }
 
-export default Result
+
+const mapStateToProps = (state) => {
+    return {
+        results: state.results
+    }
+}
+
+
+export default connect(mapStateToProps)(Result)
+
+
+
+
+
+
+

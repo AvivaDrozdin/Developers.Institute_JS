@@ -1,3 +1,6 @@
+import {connect} from 'react-redux';
+import { setNames } from '../redux/actions';
+
 const Sname = (props) => {
     return(
         <>
@@ -7,4 +10,10 @@ const Sname = (props) => {
     )
 }
 
-export default Sname
+const mapDisatchToProps = dispatch => {
+    return {
+        handleChange:(e) => dispatch(setNames(e.target.name, e.target.value))
+    }
+}
+
+export default connect(null, mapDisatchToProps)(Sname)
