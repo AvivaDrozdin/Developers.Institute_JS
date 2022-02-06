@@ -12,7 +12,6 @@ const reducers = combineReducers({
 })
 
 
-
-
-
 install npm -i redux logger
+
+// check logger - addition
